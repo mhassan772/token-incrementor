@@ -11,7 +11,7 @@ public class BurpExtender implements burp.IBurpExtender, burp.IHttpListener
     private PrintWriter stdout;
     private PrintWriter stderr;
 
-    private int counter = 0;
+    private int counter = 5;
     private String nextToken = "";
     private String nextTimestamp = "";
     private Random rand = new Random();
@@ -57,10 +57,9 @@ public class BurpExtender implements burp.IBurpExtender, burp.IHttpListener
             String reqBody = request.substring(iRequest.getBodyOffset());
 
             if (reqBody.contains("IncrementMePlease")) {
-
                 int offset = reqBody.indexOf("IncrementMePlease");
                 stdout.println(offset);
-                reqBody = reqBody.replaceAll("IncrementMePlease", "Incremented" + String.valueOf(randomint) + String.valueOf(counter));
+                reqBody = reqBody.replaceAll("IncrementMePlease", String.valueOf(counter));
                 counter++;
                 updated = true;
             }
